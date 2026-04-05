@@ -66,11 +66,11 @@ export default function Crafted() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="bg-kumo-beige text-kumo-dark py-20 md:py-32 lg:py-40">
+    <section ref={sectionRef} className="bg-kumo-beige text-kumo-dark py-14 sm:py-20 md:py-32 lg:py-40">
       <div className="px-6 md:px-12">
         <div ref={titleRef}>
           {/* Title: Crafted */}
-          <h2 className="font-serif text-[clamp(4.5rem,13vw,11rem)] leading-[0.85] tracking-[-0.02em] mb-6 md:mb-12">
+          <h2 className="font-serif text-[clamp(2.8rem,13vw,11rem)] leading-[0.85] tracking-[-0.02em] mb-6 md:mb-12">
             <span className="crafted-word inline-block">Crafted</span>
           </h2>
         </div>
@@ -90,10 +90,10 @@ export default function Crafted() {
           {/* Right: "For Today" + description */}
           <div className="flex flex-col justify-between py-2">
             <div ref={titleRef} className="flex flex-col">
-              <h2 className="crafted-word font-serif text-[clamp(4.5rem,13vw,11rem)] leading-[0.8] tracking-[-0.02em]">
+              <h2 className="crafted-word font-serif text-[clamp(2.8rem,13vw,11rem)] leading-[0.8] tracking-[-0.02em]">
                 For
               </h2>
-              <h2 className="crafted-word font-serif text-[clamp(4.5rem,13vw,11rem)] leading-[0.8] tracking-[-0.02em]">
+              <h2 className="crafted-word font-serif text-[clamp(2.8rem,13vw,11rem)] leading-[0.8] tracking-[-0.02em]">
                 Today
               </h2>
             </div>

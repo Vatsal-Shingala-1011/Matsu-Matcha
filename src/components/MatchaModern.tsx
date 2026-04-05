@@ -67,7 +67,7 @@ export default function MatchaModern() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="bg-kumo-muted text-kumo-dark py-20 md:py-32 lg:py-40 overflow-hidden">
+    <section ref={sectionRef} className="bg-kumo-muted text-kumo-dark py-14 sm:py-20 md:py-32 lg:py-40 overflow-hidden">
       <div className="px-6 md:px-12">
         {/* Section heading */}
         <div ref={titleRef} className="text-center mb-12 md:mb-20">
@@ -79,7 +79,7 @@ export default function MatchaModern() {
         {/* Bento grid layout */}
         <div ref={gridRef} className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
           {/* Row 1 */}
-          <div className="bento-card bg-kumo-olive-dark rounded-md p-6 md:p-10 flex flex-col justify-end aspect-square">
+          <div className="bento-card bg-kumo-olive-dark rounded-md p-4 sm:p-6 md:p-10 flex flex-col justify-end aspect-square">
             <p className="font-serif text-[clamp(1.1rem,2.2vw,1.8rem)] leading-[1.25] text-kumo-primary">
               &ldquo;In every sip, there is calm and clarity.&rdquo;
             </p>
@@ -117,7 +117,7 @@ export default function MatchaModern() {
           </div>
 
           {/* Japanese text card */}
-          <div className="bento-card bg-kumo-brown rounded-md p-6 md:p-10 flex flex-col justify-between aspect-square">
+          <div className="bento-card bg-kumo-brown rounded-md p-4 sm:p-6 md:p-10 flex flex-col justify-between aspect-square">
             <div className="font-serif text-[clamp(1.8rem,3.5vw,3rem)] leading-[1] text-kumo-white mt-auto mb-4">
               雲抹茶
             </div>
@@ -129,7 +129,7 @@ export default function MatchaModern() {
           {/* Row 3 */}
           <div className="hidden md:block" />
 
-          <div className="bento-card bg-kumo-red rounded-md p-6 md:p-10 flex flex-col justify-between aspect-square">
+          <div className="bento-card bg-kumo-red rounded-md p-4 sm:p-6 md:p-10 flex flex-col justify-between aspect-square">
             <p className="text-[0.8rem] md:text-[0.9rem] leading-[1.65] text-kumo-beige/85 font-light">
               Whether you&apos;re looking for a morning boost, a smooth
               afternoon companion, or a calming evening ritual – we&apos;ve

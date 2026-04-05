@@ -102,8 +102,8 @@ export default function Intro() {
       </svg>
 
       {/* Text section */}
-      <div className="px-6 md:px-12 pt-24 md:pt-40 pb-12 md:pb-16">
-        <div ref={textRef} className="max-w-[80%] md:max-w-[75%]">
+      <div className="px-6 md:px-12 pt-16 sm:pt-24 md:pt-40 pb-10 md:pb-16">
+        <div ref={textRef} className="max-w-full sm:max-w-[80%] md:max-w-[75%]">
           <p className="font-serif text-[clamp(1.4rem,3.2vw,2.8rem)] leading-[1.25] text-kumo-beige">
             Matcha is more than a drink. It&apos;s energy, clarity, and calm in
             one cup. We bring the world&apos;s finest matcha into your daily
@@ -119,8 +119,8 @@ export default function Intro() {
       </div>
 
       {/* Image section - right-aligned */}
-      <div className="px-6 md:px-12 pb-12 md:pb-0 flex justify-end relative">
-        <div className="w-full md:w-[50%] aspect-[4/5] overflow-hidden rounded-md">
+      <div className="px-6 md:px-12 pb-8 md:pb-0 flex justify-end relative">
+        <div className="w-full md:w-[50%] aspect-[3/4] sm:aspect-[4/5] overflow-hidden rounded-md">
           <img
             ref={imgRef}
             src="https://cdn.prod.website-files.com/68c43ea6bc2e2319f7e948e1/68c805a6a9eb08d6b059ad76_3d6f4f2d3753a07fd36d19b15894ccf3_Tea%20Preparation%20Scene.avif"

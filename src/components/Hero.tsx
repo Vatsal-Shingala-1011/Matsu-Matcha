@@ -111,7 +111,7 @@ export default function Hero() {
               <div className="md:col-span-5 overflow-hidden">
                 <h1
                   ref={titleRef}
-                  className="font-serif text-[clamp(4.5rem,12vw,10.5rem)] leading-[0.85] tracking-[-0.02em] text-kumo-white uppercase"
+                  className="font-serif text-[clamp(2.8rem,12vw,10.5rem)] leading-[0.85] tracking-[-0.02em] text-kumo-white uppercase"
                 >
                   <span className="hero-line inline-block">Start</span>
                   <br />

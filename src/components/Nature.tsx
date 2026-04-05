@@ -80,8 +80,8 @@ export default function Nature() {
       {/* Content */}
       <div className="relative z-10 min-h-[90vh] flex flex-col justify-between">
         {/* Top: Title */}
-        <div ref={titleRef} className="px-6 md:px-12 pt-20 md:pt-28">
-          <h2 className="font-serif text-[clamp(3.5rem,10vw,8rem)] leading-[0.9] tracking-[-0.02em] text-kumo-white">
+        <div ref={titleRef} className="px-6 md:px-12 pt-14 sm:pt-20 md:pt-28">
+          <h2 className="font-serif text-[clamp(2.5rem,10vw,8rem)] leading-[0.9] tracking-[-0.02em] text-kumo-white">
             Respect
             <br />
             for Nature

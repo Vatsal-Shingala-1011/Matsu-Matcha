@@ -74,8 +74,8 @@ export default function CtaBanner() {
   return (
     <section
       ref={sectionRef}
-      className="relative overflow-hidden py-[14rem] md:py-[10rem]"
-      style={{ minHeight: "38rem" }}
+      className="relative overflow-hidden py-24 sm:py-[10rem] md:py-[10rem]"
+      style={{ minHeight: "auto" }}
     >
       {/* SVG decoration — top right, behind the image */}
       <div className="absolute top-[-5rem] right-[5%] w-[30%] max-w-[300px] pointer-events-none z-0">
@@ -99,7 +99,7 @@ export default function CtaBanner() {
       {/* Hand holding iced coffee — absolute right */}
       <div
         ref={imgRef}
-        className="absolute right-0 top-[5rem] bottom-0 w-[55%] md:w-[50%] z-[1] pointer-events-none"
+        className="absolute right-0 top-[5rem] bottom-0 w-[40%] sm:w-[50%] md:w-[50%] z-[1] pointer-events-none"
       >
         <img
           src="https://cdn.prod.website-files.com/68c43ea6bc2e2319f7e948e1/68d43cb561789bda881ebe52_Hand-Holding-Iced-Coffee-free.avif"
@@ -110,8 +110,8 @@ export default function CtaBanner() {
 
       {/* Text content — left side, on top */}
       <div className="relative z-[2] px-6 md:px-12 lg:px-16">
-        <div ref={textRef} className="max-w-[26rem]">
-          <p className="text-[clamp(1.25rem,2.2vw,1.7rem)] leading-[1.45] text-kumo-light font-normal font-serif">
+        <div ref={textRef} className="max-w-[70%] sm:max-w-[26rem]">
+          <p className="text-[clamp(1.1rem,2.2vw,1.7rem)] leading-[1.4] text-kumo-light font-normal font-serif">
             At the intersection of culture and craft, we found our purpose – to
             share the glow of matcha with a new generation.
           </p>

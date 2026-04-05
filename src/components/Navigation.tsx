@@ -48,7 +48,7 @@ export default function Navigation() {
           </div>
 
           {/* Center logo */}
-          <Link href="/" className="absolute left-1/2 -translate-x-1/2 w-28 md:w-36">
+          <Link href="/" className="absolute left-1/2 -translate-x-1/2 w-20 sm:w-28 md:w-36">
             <MatsuLogo className="text-current" />
             <div className="text-center text-[0.6rem] tracking-[0.35em] mt-0.5 uppercase font-light">
               Matcha
@@ -67,7 +67,7 @@ export default function Navigation() {
 
           {/* Mobile menu button */}
           <button
-            className="md:hidden ml-auto flex flex-col gap-1.5 p-2"
+            className="md:hidden ml-auto flex flex-col gap-1.5 p-3"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Toggle menu"
           >
@@ -93,16 +93,16 @@ export default function Navigation() {
             : "opacity-0 pointer-events-none"
         }`}
       >
-        <Link href="/about" className="text-2xl tracking-wide" onClick={() => setMenuOpen(false)}>
+        <Link href="/about" className="text-xl sm:text-2xl tracking-wide uppercase" onClick={() => setMenuOpen(false)}>
           About
         </Link>
-        <Link href="/producers" className="text-2xl tracking-wide" onClick={() => setMenuOpen(false)}>
+        <Link href="/producers" className="text-xl sm:text-2xl tracking-wide uppercase" onClick={() => setMenuOpen(false)}>
           Producers
         </Link>
-        <Link href="/recipes" className="text-2xl tracking-wide" onClick={() => setMenuOpen(false)}>
+        <Link href="/recipes" className="text-xl sm:text-2xl tracking-wide uppercase" onClick={() => setMenuOpen(false)}>
           Recipes
         </Link>
-        <Link href="/shop" className="text-2xl tracking-wide" onClick={() => setMenuOpen(false)}>
+        <Link href="/shop" className="text-xl sm:text-2xl tracking-wide uppercase" onClick={() => setMenuOpen(false)}>
           Shop
         </Link>
       </div>

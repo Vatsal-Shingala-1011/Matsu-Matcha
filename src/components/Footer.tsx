@@ -47,9 +47,9 @@ export default function Footer() {
       <div className="relative z-10 pt-24 pb-8">
         <div
           ref={contentRef}
-          className="mx-6 md:mx-12 lg:mx-16 bg-kumo-dark/90 backdrop-blur-sm rounded-lg p-8 md:p-12"
+          className="mx-4 sm:mx-6 md:mx-12 lg:mx-16 bg-kumo-dark/90 backdrop-blur-sm rounded-lg p-5 sm:p-8 md:p-12"
         >
-          <div className="grid grid-cols-1 md:grid-cols-[1.2fr_1fr_1fr] gap-10 md:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-[1.2fr_1fr_1fr] gap-6 md:gap-8">
             {/* Left: Photo + Nav links */}
             <div className="flex flex-col gap-6">
               <div className="w-40 h-40 overflow-hidden rounded-sm">
@@ -105,11 +105,11 @@ export default function Footer() {
                   <a
                     href="#"
                     aria-label="Facebook"
-                    className="w-8 h-8 rounded-full border border-kumo-olive/40 flex items-center justify-center text-kumo-beige/70 hover:text-kumo-beige transition-colors"
+                    className="w-10 h-10 rounded-full border border-kumo-olive/40 flex items-center justify-center text-kumo-beige/70 hover:text-kumo-beige transition-colors"
                   >
                     <svg
-                      width="14"
-                      height="14"
+                      width="16"
+                      height="16"
                       viewBox="0 0 24 24"
                       fill="currentColor"
                     >
@@ -119,11 +119,11 @@ export default function Footer() {
                   <a
                     href="#"
                     aria-label="Instagram"
-                    className="w-8 h-8 rounded-full border border-kumo-olive/40 flex items-center justify-center text-kumo-beige/70 hover:text-kumo-beige transition-colors"
+                    className="w-10 h-10 rounded-full border border-kumo-olive/40 flex items-center justify-center text-kumo-beige/70 hover:text-kumo-beige transition-colors"
                   >
                     <svg
-                      width="14"
-                      height="14"
+                      width="16"
+                      height="16"
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
@@ -143,11 +143,11 @@ export default function Footer() {
                   <a
                     href="#"
                     aria-label="LinkedIn"
-                    className="w-8 h-8 rounded-full border border-kumo-olive/40 flex items-center justify-center text-kumo-beige/70 hover:text-kumo-beige transition-colors"
+                    className="w-10 h-10 rounded-full border border-kumo-olive/40 flex items-center justify-center text-kumo-beige/70 hover:text-kumo-beige transition-colors"
                   >
                     <svg
-                      width="14"
-                      height="14"
+                      width="16"
+                      height="16"
                       viewBox="0 0 24 24"
                       fill="currentColor"
                     >
@@ -164,9 +164,9 @@ export default function Footer() {
                   <input
                     type="email"
                     placeholder="E-Mail"
-                    className="bg-transparent border border-kumo-olive/40 rounded-l-sm px-3 py-2 text-xs text-kumo-beige/80 placeholder:text-kumo-muted/50 flex-1 outline-none focus:border-kumo-muted"
+                    className="bg-transparent border border-kumo-olive/40 rounded-l-sm px-3 py-3 text-xs text-kumo-beige/80 placeholder:text-kumo-muted/50 flex-1 outline-none focus:border-kumo-muted"
                   />
-                  <button className="bg-kumo-olive/50 border border-kumo-olive/40 border-l-0 rounded-r-sm px-3 py-2 text-kumo-beige hover:bg-kumo-olive transition-colors">
+                  <button className="bg-kumo-olive/50 border border-kumo-olive/40 border-l-0 rounded-r-sm px-4 py-3 text-kumo-beige hover:bg-kumo-olive transition-colors">
                     <svg
                       width="14"
                       height="14"
@@ -192,7 +192,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="mx-6 md:mx-12 lg:mx-16 flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-kumo-dark/10">
+        <div className="mx-4 sm:mx-6 md:mx-12 lg:mx-16 flex flex-wrap items-center justify-between gap-2 pt-4 border-t border-kumo-dark/10">
           <div className="flex items-center gap-2 text-xs text-kumo-dark/50">
             <span>©2025</span>
             <span>Matsu Matcha</span>

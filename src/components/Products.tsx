@@ -249,7 +249,7 @@ export default function Products() {
                 aria-label={`Slide ${i + 1} of ${products.length}`}
                 style={{
                   width: "calc((100% - 2 * clamp(1.5rem, 2.5vw, 2.5rem)) / 3)",
-                  minWidth: "280px",
+                  minWidth: "220px",
                 }}
               >
                 {/* Product image — portrait aspect ratio 2/2.5 matching original */}
