@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import Link from "next/link";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -86,10 +85,11 @@ export default function Hero() {
         data-parallax-layers
         className="sticky top-0 h-screen w-full overflow-hidden"
       >
-        {/* Layer 1: Background image — moves slowly */}
+        {/* Layer 1: Background image — moves slowly, taller than viewport to prevent gaps during parallax */}
         <div
           data-parallax-layer="1"
-          className="absolute inset-0 w-full h-full will-change-transform"
+          className="absolute inset-x-0 top-0 w-full will-change-transform"
+          style={{ height: "120%" }}
         >
           <img
             src="https://cdn.prod.website-files.com/68c43ea6bc2e2319f7e948e1/68ced4037313122cbefe3d2e_1dc96953009912ff36a8191ae292ac89_6.avif"
@@ -104,13 +104,13 @@ export default function Hero() {
           data-parallax-layer="2"
           className="absolute bottom-0 left-0 w-full z-10 will-change-transform"
         >
-          <div className="w-full px-6 md:px-12 pb-12 md:pb-20">
+          <div className="w-full px-6 md:px-12 pb-8 md:pb-14">
             <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 items-end">
               {/* Left: Large display title */}
               <div className="md:col-span-5 overflow-hidden">
                 <h1
                   ref={titleRef}
-                  className="font-serif text-[clamp(4rem,11vw,9rem)] leading-[0.88] tracking-[-0.02em] text-kumo-white uppercase"
+                  className="font-serif text-[clamp(4.5rem,12vw,10.5rem)] leading-[0.85] tracking-[-0.02em] text-kumo-white uppercase"
                 >
                   <span className="hero-line inline-block">Start</span>
                   <br />
@@ -125,20 +125,22 @@ export default function Hero() {
               {/* Right: Description + CTA */}
               <div
                 ref={descRef}
-                className="md:col-span-4 md:col-start-8 flex flex-col gap-6 pb-2"
+                className="md:col-span-4 md:col-start-9 flex flex-col gap-5 pb-2"
               >
-                <p className="text-[0.9rem] leading-[1.7] text-kumo-beige/85 font-light">
+                <p className="text-[0.85rem] leading-[1.65] text-kumo-beige/80 font-light">
                   Our matcha blends are designed for modern living – vibrant,
                   smooth, and rich in flavor. From traditional sips to bold new
                   recipes, we make it easy to turn your routine into a ritual.
                 </p>
                 <div>
-                  <Link
-                    href="/shop"
+                  <a
+                    href="https://kumo-matcha.webflow.io/shop"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="btn-kumo btn-green inline-block"
                   >
-                    <span>Get your Matcha</span>
-                  </Link>
+                    <span>GET YOUR MATCHA</span>
+                  </a>
                 </div>
               </div>
             </div>

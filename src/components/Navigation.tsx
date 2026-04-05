@@ -20,7 +20,7 @@ export default function Navigation() {
         trigger: "body",
         start: "70px top",
         onEnter: () => {
-          gsap.to(bgRef.current, { backgroundColor: "rgba(26,31,3,0.85)", backdropFilter: "blur(10px)", duration: 0.4 });
+          gsap.to(bgRef.current, { backgroundColor: "rgba(26,31,3,0)", backdropFilter: "blur(0px)", duration: 0.4 });
         },
         onLeaveBack: () => {
           gsap.to(bgRef.current, { backgroundColor: "rgba(26,31,3,0)", backdropFilter: "blur(0px)", duration: 0.4 });
@@ -39,28 +39,28 @@ export default function Navigation() {
         <div className="relative flex items-center justify-between">
           {/* Left nav links - desktop */}
           <div className="hidden md:flex items-center gap-8">
-            <Link href="/about" className="text-sm tracking-wide hover:opacity-70 transition-opacity">
+            <Link href="/about" className="text-[0.8rem] uppercase tracking-[0.08em] hover:opacity-70 transition-opacity">
               About
             </Link>
-            <Link href="/producers" className="text-sm tracking-wide hover:opacity-70 transition-opacity">
+            <Link href="/producers" className="text-[0.8rem] uppercase tracking-[0.08em] hover:opacity-70 transition-opacity">
               Producers
             </Link>
           </div>
 
           {/* Center logo */}
-          <Link href="/" className="absolute left-1/2 -translate-x-1/2 w-20 md:w-24">
+          <Link href="/" className="absolute left-1/2 -translate-x-1/2 w-28 md:w-36">
             <MatsuLogo className="text-current" />
-            <div className="text-center text-[0.55rem] tracking-[0.35em] mt-0.5 uppercase font-light">
+            <div className="text-center text-[0.6rem] tracking-[0.35em] mt-0.5 uppercase font-light">
               Matcha
             </div>
           </Link>
 
           {/* Right nav links - desktop */}
           <div className="hidden md:flex items-center gap-8">
-            <Link href="/recipes" className="text-sm tracking-wide hover:opacity-70 transition-opacity">
+            <Link href="/recipes" className="text-[0.8rem] uppercase tracking-[0.08em] hover:opacity-70 transition-opacity">
               Recipes
             </Link>
-            <Link href="/shop" className="text-sm tracking-wide hover:opacity-70 transition-opacity">
+            <Link href="/shop" className="text-[0.8rem] uppercase tracking-[0.08em] hover:opacity-70 transition-opacity">
               Shop
             </Link>
           </div>

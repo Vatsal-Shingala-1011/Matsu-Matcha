@@ -109,9 +109,9 @@ export default function CtaBanner() {
       </div>
 
       {/* Text content — left side, on top */}
-      <div className="relative z-[2] px-6 md:px-12 lg:px-16 max-w-[55rem] mx-auto">
-        <div ref={textRef} className="max-w-[30rem]">
-          <p className="text-[clamp(1.25rem,2.2vw,1.7rem)] leading-[1.45] text-kumo-light font-normal">
+      <div className="relative z-[2] px-6 md:px-12 lg:px-16">
+        <div ref={textRef} className="max-w-[26rem]">
+          <p className="text-[clamp(1.25rem,2.2vw,1.7rem)] leading-[1.45] text-kumo-light font-normal font-serif">
             At the intersection of culture and craft, we found our purpose – to
             share the glow of matcha with a new generation.
           </p>
