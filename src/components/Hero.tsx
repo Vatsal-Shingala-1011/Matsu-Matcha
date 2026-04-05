@@ -9,8 +9,6 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
-  const imgRef = useRef<HTMLImageElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const descRef = useRef<HTMLDivElement>(null);
 
@@ -43,22 +41,35 @@ export default function Hero() {
         });
       }
 
-      // Parallax: background image drifts upward slower than scroll
-      if (imgRef.current) {
-        gsap.fromTo(
-          imgRef.current,
-          { yPercent: 0 },
-          {
-            yPercent: 20,
-            ease: "none",
-            scrollTrigger: {
-              trigger: sectionRef.current,
-              start: "top top",
-              end: "bottom top",
-              scrub: true,
-            },
-          }
-        );
+      // Parallax layers — inspired by osmo parallax pattern
+      // Background image (layer 1) moves slowly, text (layer 2) moves faster
+      const layersContainer = sectionRef.current?.querySelector(
+        "[data-parallax-layers]"
+      );
+      if (layersContainer) {
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: layersContainer,
+            start: "0% 0%",
+            end: "100% 0%",
+            scrub: 0,
+          },
+        });
+
+        const layers = [
+          { layer: "1", yPercent: -8 },   // background — drifts up very slowly
+          { layer: "2", yPercent: -60 },   // text content — scrolls up and away
+        ];
+
+        layers.forEach((layerObj, idx) => {
+          tl.to(
+            layersContainer.querySelectorAll(
+              `[data-parallax-layer="${layerObj.layer}"]`
+            ),
+            { yPercent: layerObj.yPercent, ease: "none" },
+            idx === 0 ? undefined : "<"
+          );
+        });
       }
     }, sectionRef);
     return () => ctx.revert();
@@ -67,59 +78,68 @@ export default function Hero() {
   return (
     <section
       ref={sectionRef}
-      className="relative overflow-clip"
-      style={{ height: "115vh" }}
+      className="relative"
+      style={{ height: "200vh" }}
     >
-      {/* Background image — absolute, taller than section for parallax travel */}
-      <div className="absolute inset-0 w-full h-full">
-        <img
-          ref={imgRef}
-          src="https://cdn.prod.website-files.com/68c43ea6bc2e2319f7e948e1/68ced4037313122cbefe3d2e_1dc96953009912ff36a8191ae292ac89_6.avif"
-          alt="A hand stirs with a stick in an elegant cocktail glass filled with green matcha tea and ice cubes."
-          className="w-full object-cover object-center will-change-transform"
-          style={{ height: "130%" }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-kumo-dark/40 via-transparent to-kumo-dark/15" />
-      </div>
-
-      {/* Content — sits at bottom of first 100vh viewport */}
+      {/* Parallax layers container — full 200vh so ScrollTrigger has distance */}
       <div
-        ref={contentRef}
-        className="relative w-full flex items-end z-10"
-        style={{ height: "100vh" }}
+        data-parallax-layers
+        className="sticky top-0 h-screen w-full overflow-hidden"
       >
-        <div className="w-full px-6 md:px-12 pb-12 md:pb-20">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 items-end">
-            {/* Left: Large display title */}
-            <div className="md:col-span-5 overflow-hidden">
-              <h1
-                ref={titleRef}
-                className="font-serif text-[clamp(4rem,11vw,9rem)] leading-[0.88] tracking-[-0.02em] text-kumo-white uppercase"
-              >
-                <span className="hero-line inline-block">Start</span>
-                <br />
-                <span className="hero-line inline-block">your</span>
-                <br />
-                <span className="hero-line inline-block">new</span>
-                <br />
-                <span className="hero-line inline-block">Rituals</span>
-              </h1>
-            </div>
+        {/* Layer 1: Background image — moves slowly */}
+        <div
+          data-parallax-layer="1"
+          className="absolute inset-0 w-full h-full will-change-transform"
+        >
+          <img
+            src="https://cdn.prod.website-files.com/68c43ea6bc2e2319f7e948e1/68ced4037313122cbefe3d2e_1dc96953009912ff36a8191ae292ac89_6.avif"
+            alt="A hand stirs with a stick in an elegant cocktail glass filled with green matcha tea and ice cubes."
+            className="w-full h-full object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-kumo-dark/40 via-transparent to-kumo-dark/15" />
+        </div>
 
-            {/* Right: Description + CTA */}
-            <div
-              ref={descRef}
-              className="md:col-span-4 md:col-start-8 flex flex-col gap-6 pb-2"
-            >
-              <p className="text-[0.9rem] leading-[1.7] text-kumo-beige/85 font-light">
-                Our matcha blends are designed for modern living – vibrant,
-                smooth, and rich in flavor. From traditional sips to bold new
-                recipes, we make it easy to turn your routine into a ritual.
-              </p>
-              <div>
-                <Link href="/shop" className="btn-kumo btn-green inline-block">
-                  <span>Get your Matcha</span>
-                </Link>
+        {/* Layer 2: Text content — moves faster, creating parallax depth */}
+        <div
+          data-parallax-layer="2"
+          className="absolute bottom-0 left-0 w-full z-10 will-change-transform"
+        >
+          <div className="w-full px-6 md:px-12 pb-12 md:pb-20">
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 items-end">
+              {/* Left: Large display title */}
+              <div className="md:col-span-5 overflow-hidden">
+                <h1
+                  ref={titleRef}
+                  className="font-serif text-[clamp(4rem,11vw,9rem)] leading-[0.88] tracking-[-0.02em] text-kumo-white uppercase"
+                >
+                  <span className="hero-line inline-block">Start</span>
+                  <br />
+                  <span className="hero-line inline-block">your</span>
+                  <br />
+                  <span className="hero-line inline-block">new</span>
+                  <br />
+                  <span className="hero-line inline-block">Rituals</span>
+                </h1>
+              </div>
+
+              {/* Right: Description + CTA */}
+              <div
+                ref={descRef}
+                className="md:col-span-4 md:col-start-8 flex flex-col gap-6 pb-2"
+              >
+                <p className="text-[0.9rem] leading-[1.7] text-kumo-beige/85 font-light">
+                  Our matcha blends are designed for modern living – vibrant,
+                  smooth, and rich in flavor. From traditional sips to bold new
+                  recipes, we make it easy to turn your routine into a ritual.
+                </p>
+                <div>
+                  <Link
+                    href="/shop"
+                    className="btn-kumo btn-green inline-block"
+                  >
+                    <span>Get your Matcha</span>
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
