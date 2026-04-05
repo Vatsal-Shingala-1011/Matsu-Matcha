@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Link from "next/link";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -133,14 +134,12 @@ export default function Hero() {
                   recipes, we make it easy to turn your routine into a ritual.
                 </p>
                 <div>
-                  <a
-                    href="https://kumo-matcha.webflow.io/shop"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <Link
+                    href="/shop"
                     className="btn-kumo btn-green inline-block"
                   >
                     <span>GET YOUR MATCHA</span>
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
