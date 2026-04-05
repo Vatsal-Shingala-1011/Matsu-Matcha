@@ -1,31 +1,113 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
+const FRAME_COUNT = 50;
+const FRAME_PATH = (i: number) => `/frames/${String(i).padStart(2, "0")}.png`;
+
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const descRef = useRef<HTMLDivElement>(null);
+  const framesRef = useRef<HTMLImageElement[]>([]);
+  const [loaded, setLoaded] = useState(false);
 
+  // Preload all frames
   useEffect(() => {
-    if (!sectionRef.current) return;
+    const images: HTMLImageElement[] = [];
+    let count = 0;
+    for (let i = 1; i <= FRAME_COUNT; i++) {
+      const img = new Image();
+      img.src = FRAME_PATH(i);
+      img.onload = () => {
+        count++;
+        if (count === FRAME_COUNT) {
+          framesRef.current = images;
+          setLoaded(true);
+        }
+      };
+      images.push(img);
+    }
+  }, []);
+
+  // Draw frame to canvas, covering viewport like object-cover
+  const drawFrame = (index: number) => {
+    const canvas = canvasRef.current;
+    if (!canvas || !framesRef.current.length) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    const clamped = Math.max(0, Math.min(index, FRAME_COUNT - 1));
+    const img = framesRef.current[clamped];
+    if (!img) return;
+
+    const cw = canvas.width;
+    const ch = canvas.height;
+    const iw = img.naturalWidth;
+    const ih = img.naturalHeight;
+
+    // object-cover logic
+    const scale = Math.max(cw / iw, ch / ih);
+    const sw = iw * scale;
+    const sh = ih * scale;
+    const sx = (cw - sw) / 2;
+    const sy = (ch - sh) / 2;
+
+    ctx.clearRect(0, 0, cw, ch);
+    ctx.drawImage(img, sx, sy, sw, sh);
+  };
+
+  // Resize canvas to viewport
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const resize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      if (loaded) drawFrame(0);
+    };
+    resize();
+    window.addEventListener("resize", resize);
+    return () => window.removeEventListener("resize", resize);
+  }, [loaded]);
+
+  // GSAP ScrollTrigger to scrub through frames + text animations
+  useEffect(() => {
+    if (!sectionRef.current || !loaded) return;
     const ctx = gsap.context(() => {
-      // Initial load animation - title lines stagger up (delayed for preloader)
+      // Frame scrubbing — animate a proxy object's frame property
+      const frameObj = { frame: 0 };
+      ScrollTrigger.create({
+        trigger: sectionRef.current,
+        start: "top top",
+        end: "bottom bottom",
+        scrub: 0.5,
+        onUpdate: (self) => {
+          const idx = Math.round(self.progress * (FRAME_COUNT - 1));
+          if (idx !== frameObj.frame) {
+            frameObj.frame = idx;
+            drawFrame(idx);
+          }
+        },
+      });
+
+      // Draw initial frame
+      drawFrame(0);
+
+      // Title reveal — delayed for preloader
       const lines = titleRef.current?.querySelectorAll(".hero-line");
       if (lines) {
         gsap.set(lines, { y: 120, opacity: 0 });
         gsap.to(lines, {
-          y: 0,
-          opacity: 1,
-          duration: 1.2,
-          ease: "power3.out",
-          stagger: 0.15,
-          delay: 2.5,
+          y: 0, opacity: 1,
+          duration: 1.2, ease: "power3.out",
+          stagger: 0.15, delay: 2.5,
         });
       }
 
@@ -33,47 +115,29 @@ export default function Hero() {
       if (descRef.current) {
         gsap.set(descRef.current, { y: 40, opacity: 0 });
         gsap.to(descRef.current, {
-          y: 0,
-          opacity: 1,
-          duration: 1,
-          ease: "power2.out",
+          y: 0, opacity: 1,
+          duration: 1, ease: "power2.out",
           delay: 3.1,
         });
       }
 
-      // Parallax layers — inspired by osmo parallax pattern
-      // Background image (layer 1) moves slowly, text (layer 2) moves faster
-      const layersContainer = sectionRef.current?.querySelector(
-        "[data-parallax-layers]"
-      );
-      if (layersContainer) {
-        const tl = gsap.timeline({
+      // Text layer scrolls up as user scrolls
+      const textLayer = sectionRef.current?.querySelector("[data-text-layer]");
+      if (textLayer) {
+        gsap.to(textLayer, {
+          yPercent: -60,
+          ease: "none",
           scrollTrigger: {
-            trigger: layersContainer,
-            start: "0% 0%",
-            end: "100% 0%",
+            trigger: sectionRef.current,
+            start: "top top",
+            end: "bottom bottom",
             scrub: 0,
           },
-        });
-
-        const layers = [
-          { layer: "1", yPercent: -8 },   // background — drifts up very slowly
-          { layer: "2", yPercent: -60 },   // text content — scrolls up and away
-        ];
-
-        layers.forEach((layerObj, idx) => {
-          tl.to(
-            layersContainer.querySelectorAll(
-              `[data-parallax-layer="${layerObj.layer}"]`
-            ),
-            { yPercent: layerObj.yPercent, ease: "none" },
-            idx === 0 ? undefined : "<"
-          );
         });
       }
     }, sectionRef);
     return () => ctx.revert();
-  }, []);
+  }, [loaded]);
 
   return (
     <section
@@ -81,28 +145,18 @@ export default function Hero() {
       className="relative"
       style={{ height: "200vh" }}
     >
-      {/* Parallax layers container — full 200vh so ScrollTrigger has distance */}
-      <div
-        data-parallax-layers
-        className="sticky top-0 h-screen w-full overflow-hidden"
-      >
-        {/* Layer 1: Background image — moves slowly, taller than viewport to prevent gaps during parallax */}
-        <div
-          data-parallax-layer="1"
-          className="absolute inset-x-0 top-0 w-full will-change-transform"
-          style={{ height: "120%" }}
-        >
-          <img
-            src="https://cdn.prod.website-files.com/68c43ea6bc2e2319f7e948e1/68ced4037313122cbefe3d2e_1dc96953009912ff36a8191ae292ac89_6.avif"
-            alt="A hand stirs with a stick in an elegant cocktail glass filled with green matcha tea and ice cubes."
-            className="w-full h-full object-cover object-center"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-kumo-dark/40 via-transparent to-kumo-dark/15" />
-        </div>
+      <div className="sticky top-0 h-screen w-full overflow-hidden">
+        {/* Canvas background — frame animation scrubbed by scroll */}
+        <canvas
+          ref={canvasRef}
+          className="absolute inset-0 w-full h-full"
+        />
+        {/* Gradient overlay for text legibility */}
+        <div className="absolute inset-0 bg-gradient-to-t from-kumo-dark/50 via-transparent to-kumo-dark/15 z-[1]" />
 
-        {/* Layer 2: Text content — moves faster, creating parallax depth */}
+        {/* Text layer — scrolls up faster than background */}
         <div
-          data-parallax-layer="2"
+          data-text-layer
           className="absolute bottom-0 left-0 w-full z-10 will-change-transform"
         >
           <div className="w-full px-6 md:px-12 pb-8 md:pb-14">
@@ -128,7 +182,7 @@ export default function Hero() {
                 ref={descRef}
                 className="md:col-span-4 md:col-start-9 flex flex-col gap-5 pb-2"
               >
-                <p className="text-[0.85rem] leading-[1.65] text-kumo-beige/80 font-light">
+                <p className="text-[1.25rem] leading-[1.65] text-kumo-beige/80 font-light">
                   Our matcha blends are designed for modern living – vibrant,
                   smooth, and rich in flavor. From traditional sips to bold new
                   recipes, we make it easy to turn your routine into a ritual.
