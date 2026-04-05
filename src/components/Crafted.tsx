@@ -99,7 +99,7 @@ export default function Crafted() {
             </div>
             <div ref={descRef} className="max-w-sm mt-8 md:mt-0">
               <p className="text-[0.9rem] leading-[1.7] text-kumo-dark/75 font-light">
-                Our matcha blends are designed for modern living – vibrant,
+                Our matcha blends are designed for modern living vibrant,
                 smooth, and rich in flavor. From traditional sips to bold new
                 recipes, we make it easy to turn your routine into a ritual.
               </p>

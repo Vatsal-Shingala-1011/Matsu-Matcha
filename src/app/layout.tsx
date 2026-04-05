@@ -17,7 +17,7 @@ const dmSans = DM_Sans({
 export const metadata: Metadata = {
   title: "Start your new Rituals – Matsu Matcha",
   description:
-    "Our matcha blends are designed for modern living – vibrant, smooth, and rich in flavor. From traditional sips to bold new recipes, we make it easy to turn your routine into a ritual.",
+    "Our matcha blends are designed for modern living vibrant, smooth, and rich in flavor. From traditional sips to bold new recipes, we make it easy to turn your routine into a ritual.",
 };
 
 export default function RootLayout({

@@ -153,6 +153,12 @@ export default function Hero() {
         />
         {/* Gradient overlay for text legibility */}
         <div className="absolute inset-0 bg-gradient-to-t from-kumo-dark/50 via-transparent to-kumo-dark/15 z-[1]" />
+        {/* Bottom-right branding to cover watermark */}
+        <div className="absolute bottom-8 right-0 z-[3] bg-kumo-dark/80 backdrop-blur-sm px-4 py-2 rounded-sm select-none pointer-events-none">
+          <span className="text-kumo-white text-[0.7rem] tracking-[0.25em] uppercase font-light">
+            Matsu Matcha
+          </span>
+        </div>
 
         {/* Text layer — scrolls up faster than background */}
         <div
@@ -183,7 +189,7 @@ export default function Hero() {
                 className="md:col-span-4 md:col-start-9 flex flex-col gap-5 pb-2"
               >
                 <p className="text-[1.25rem] leading-[1.65] text-kumo-beige/80 font-light">
-                  Our matcha blends are designed for modern living – vibrant,
+                  Our matcha blends are designed for modern living vibrant,
                   smooth, and rich in flavor. From traditional sips to bold new
                   recipes, we make it easy to turn your routine into a ritual.
                 </p>

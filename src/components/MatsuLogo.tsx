@@ -12,7 +12,7 @@ export default function MatsuLogo({ className = "" }: { className?: string }) {
         y="24"
         textAnchor="middle"
         fontFamily="var(--font-instrument-serif), serif"
-        fontSize="28"
+        fontSize="42"
         fill="currentColor"
         letterSpacing="4"
       >

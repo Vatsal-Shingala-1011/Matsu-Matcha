@@ -50,7 +50,7 @@ export default function Navigation() {
           {/* Center logo */}
           <Link href="/" className="absolute left-1/2 -translate-x-1/2 w-20 sm:w-28 md:w-36">
             <MatsuLogo className="text-current" />
-            <div className="text-center text-[0.6rem] tracking-[0.35em] mt-0.5 uppercase font-light">
+            <div className="text-center text-[0.7rem] tracking-[0.35em] mt-0.5 uppercase font-light">
               Matcha
             </div>
           </Link>
