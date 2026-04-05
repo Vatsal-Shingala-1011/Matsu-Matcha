@@ -82,7 +82,7 @@ export default function Intro() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative z-10 bg-kumo-dark">
+    <section ref={sectionRef} className="relative bg-kumo-dark">
       {/* SVG path decoration */}
       <svg
         className="absolute top-0 right-0 w-[50%] md:w-[35%] h-auto pointer-events-none z-10"

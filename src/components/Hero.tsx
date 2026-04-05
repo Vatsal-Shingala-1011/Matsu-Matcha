@@ -43,34 +43,13 @@ export default function Hero() {
         });
       }
 
-      // Parallax: background moves upward slower than scroll speed.
-      // The sticky container keeps it visible, but we translate the image
-      // so it drifts up gently as you scroll through the 200vh section.
-      const bgContainer = imgRef.current?.parentElement;
-      if (bgContainer) {
-        gsap.fromTo(
-          bgContainer,
-          { yPercent: 0 },
-          {
-            yPercent: -15,
-            ease: "none",
-            scrollTrigger: {
-              trigger: sectionRef.current,
-              start: "top top",
-              end: "bottom top",
-              scrub: true,
-            },
-          }
-        );
-      }
-
-      // Subtle zoom as background scrolls
+      // Parallax: background image drifts upward slower than scroll
       if (imgRef.current) {
         gsap.fromTo(
           imgRef.current,
-          { scale: 1 },
+          { yPercent: 0 },
           {
-            scale: 1.1,
+            yPercent: 20,
             ease: "none",
             scrollTrigger: {
               trigger: sectionRef.current,
@@ -88,28 +67,26 @@ export default function Hero() {
   return (
     <section
       ref={sectionRef}
-      className="relative"
-      style={{ height: "200vh" }}
+      className="relative overflow-clip"
+      style={{ height: "115vh" }}
     >
-      {/* Background image — sticky so it stays visible across the full 200vh scroll.
-          The next section (Intro) has z-10 and slides over this naturally. */}
-      <div className="sticky top-0 h-screen w-full overflow-hidden -z-0">
+      {/* Background image — absolute, taller than section for parallax travel */}
+      <div className="absolute inset-0 w-full h-full">
         <img
           ref={imgRef}
           src="https://cdn.prod.website-files.com/68c43ea6bc2e2319f7e948e1/68ced4037313122cbefe3d2e_1dc96953009912ff36a8191ae292ac89_6.avif"
           alt="A hand stirs with a stick in an elegant cocktail glass filled with green matcha tea and ice cubes."
-          className="w-full h-full object-cover object-center will-change-transform"
+          className="w-full object-cover object-center will-change-transform"
+          style={{ height: "130%" }}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-kumo-dark/40 via-transparent to-kumo-dark/15" />
       </div>
 
-      {/* Content — positioned absolutely at top of the 200vh section.
-          This scrolls naturally (not sticky), so text moves up faster
-          than the sticky background, creating the parallax feel.
-          Placed within h-screen so it sits at bottom of first viewport. */}
+      {/* Content — sits at bottom of first 100vh viewport */}
       <div
         ref={contentRef}
-        className="absolute top-0 left-0 w-full h-screen flex items-end z-10"
+        className="relative w-full flex items-end z-10"
+        style={{ height: "100vh" }}
       >
         <div className="w-full px-6 md:px-12 pb-12 md:pb-20">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 items-end">
