@@ -67,7 +67,7 @@ export default function MatchaModern() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="bg-kumo-olive text-kumo-beige py-20 md:py-32 lg:py-40 overflow-hidden">
+    <section ref={sectionRef} className="bg-kumo-muted text-kumo-dark py-20 md:py-32 lg:py-40 overflow-hidden">
       <div className="px-6 md:px-12">
         {/* Section heading */}
         <div ref={titleRef} className="text-center mb-12 md:mb-20">

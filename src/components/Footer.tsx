@@ -10,55 +10,21 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function Footer() {
   const footerRef = useRef<HTMLElement>(null);
-  const topRef = useRef<HTMLDivElement>(null);
-  const bottomRef = useRef<HTMLDivElement>(null);
-  const svgRef = useRef<SVGPathElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!footerRef.current) return;
     const ctx = gsap.context(() => {
-      // Top section elements fade in
-      if (topRef.current) {
-        const children = topRef.current.querySelectorAll(".footer-animate");
-        gsap.from(children, {
-          y: 50, opacity: 0,
-          duration: 1,
-          ease: "power2.out",
-          stagger: 0.2,
-          scrollTrigger: {
-            trigger: topRef.current,
-            start: "top 80%",
-            toggleActions: "play none none none",
-          },
-        });
-      }
-
-      // Bottom nav fade in
-      if (bottomRef.current) {
-        gsap.from(bottomRef.current, {
-          y: 30, opacity: 0,
+      if (contentRef.current) {
+        gsap.from(contentRef.current, {
+          y: 30,
+          opacity: 0,
           duration: 0.8,
           ease: "power2.out",
           scrollTrigger: {
-            trigger: bottomRef.current,
+            trigger: contentRef.current,
             start: "top 90%",
             toggleActions: "play none none none",
-          },
-        });
-      }
-
-      // Decorative SVG path draw
-      if (svgRef.current) {
-        const len = svgRef.current.getTotalLength();
-        gsap.set(svgRef.current, { strokeDasharray: len, strokeDashoffset: len });
-        gsap.to(svgRef.current, {
-          strokeDashoffset: 0,
-          ease: "none",
-          scrollTrigger: {
-            trigger: footerRef.current,
-            start: "top 70%",
-            end: "center center",
-            scrub: 1,
           },
         });
       }
@@ -67,125 +33,181 @@ export default function Footer() {
   }, []);
 
   return (
-    <footer ref={footerRef} className="bg-kumo-dark border-t border-kumo-olive/30 relative overflow-hidden">
-      {/* Decorative SVG */}
-      <svg
-        className="absolute right-0 top-0 w-[30%] h-auto opacity-20 pointer-events-none"
-        viewBox="0 0 400 500"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          ref={svgRef}
-          d="M350,50 C300,120 200,180 180,280 C160,380 220,430 300,400 C380,370 400,280 350,220 C300,160 200,170 140,240 C80,310 90,420 160,480"
-          stroke="#676436"
-          strokeWidth="30"
-          strokeLinecap="round"
-          fill="none"
+    <footer ref={footerRef} className="relative overflow-hidden">
+      {/* Footer background image — tea field */}
+      <div className="absolute inset-0 z-0">
+        <img
+          src="https://cdn.prod.website-files.com/68c43ea6bc2e2319f7e948e1/68c5344b59cd3644fa8c02b5_falaq-lazuardi-x6c9-KJ3nFU-unsplash.avif"
+          alt="A wide field of a tea plantation with a hill in the background."
+          className="w-full h-full object-cover"
         />
-      </svg>
-      {/* Top section with image and tagline */}
-      <div ref={topRef} className="px-6 md:px-12 py-16 md:py-24 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          {/* Left: Image */}
-          <div className="footer-animate aspect-[4/5] overflow-hidden rounded-sm max-w-sm">
-            <img
-              src="https://cdn.prod.website-files.com/68c43ea6bc2e2319f7e948e1/68d43cb561789bda881ebe52_Hand-Holding-Iced-Coffee-free.avif"
-              alt="Hand is holding an iced coffee."
-              className="w-full h-full object-cover"
-            />
-          </div>
-
-          {/* Right: Tagline */}
-          <div className="footer-animate">
-            <p className="font-serif text-[clamp(1.25rem,2.5vw,2rem)] leading-[1.3] text-kumo-beige max-w-md">
-              At the intersection of culture and craft, we found our purpose –
-              to share the glow of matcha with a new generation.
-            </p>
-          </div>
-        </div>
       </div>
 
-      {/* Bottom navigation section */}
-      <div ref={bottomRef} className="px-6 md:px-12 py-8 border-t border-kumo-olive/20 relative z-10">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-          {/* Logo */}
-          <div>
-            <Link href="/" className="inline-block w-16">
-              <MatsuLogo className="text-kumo-beige" />
-              <div className="text-[0.5rem] tracking-[0.35em] mt-0.5 uppercase text-kumo-muted">
-                Matcha
+      {/* Footer content card */}
+      <div className="relative z-10 pt-24 pb-8">
+        <div
+          ref={contentRef}
+          className="mx-6 md:mx-12 lg:mx-16 bg-kumo-dark/90 backdrop-blur-sm rounded-lg p-8 md:p-12"
+        >
+          <div className="grid grid-cols-1 md:grid-cols-[1.2fr_1fr_1fr] gap-10 md:gap-8">
+            {/* Left: Photo + Nav links */}
+            <div className="flex flex-col gap-6">
+              <div className="w-40 h-40 overflow-hidden rounded-sm">
+                <img
+                  src="https://cdn.prod.website-files.com/68c43ea6bc2e2319f7e948e1/68c90c85c2390d6153b2892f_Matcha-Tea-Enjoyment.avif"
+                  alt="A man with a cap is enjoying a cup of green matcha tea."
+                  className="w-full h-full object-cover"
+                />
               </div>
-            </Link>
-          </div>
+            </div>
 
-          {/* Navigation links */}
-          <div className="flex flex-col gap-2">
-            <span className="text-xs text-kumo-muted uppercase tracking-wider mb-2">
-              Navigate
-            </span>
-            <Link href="/about" className="text-sm text-kumo-beige/70 hover:text-kumo-beige transition-colors">
-              About
-            </Link>
-            <Link href="/producers" className="text-sm text-kumo-beige/70 hover:text-kumo-beige transition-colors">
-              Producers
-            </Link>
-            <Link href="/recipes" className="text-sm text-kumo-beige/70 hover:text-kumo-beige transition-colors">
-              Recipes
-            </Link>
-            <Link href="/shop" className="text-sm text-kumo-beige/70 hover:text-kumo-beige transition-colors">
-              Shop
-            </Link>
-          </div>
+            {/* Center: Navigation links */}
+            <div className="flex flex-col gap-3">
+              <Link
+                href="/about"
+                className="font-serif text-sm uppercase text-kumo-light tracking-wider hover:opacity-70 transition-opacity"
+              >
+                About
+              </Link>
+              <Link
+                href="/producers"
+                className="font-serif text-sm uppercase text-kumo-light tracking-wider hover:opacity-70 transition-opacity"
+              >
+                Producers
+              </Link>
+              <Link
+                href="/recipes"
+                className="font-serif text-sm uppercase text-kumo-light tracking-wider hover:opacity-70 transition-opacity"
+              >
+                Recipes
+              </Link>
+              <Link
+                href="/shop"
+                className="font-serif text-sm uppercase text-kumo-light tracking-wider hover:opacity-70 transition-opacity"
+              >
+                Shop
+              </Link>
+              <Link
+                href="#"
+                className="btn-kumo btn-green inline-block self-start text-xs mt-4"
+              >
+                <span>Join the Club</span>
+              </Link>
+            </div>
 
-          {/* Legal */}
-          <div className="flex flex-col gap-2">
-            <span className="text-xs text-kumo-muted uppercase tracking-wider mb-2">
-              Legal
-            </span>
-            <Link href="/imprint" className="text-sm text-kumo-beige/70 hover:text-kumo-beige transition-colors">
-              Imprint
-            </Link>
-            <Link href="/privacy" className="text-sm text-kumo-beige/70 hover:text-kumo-beige transition-colors">
-              Privacy
-            </Link>
-          </div>
-
-          {/* Social */}
-          <div className="flex flex-col gap-2">
-            <span className="text-xs text-kumo-muted uppercase tracking-wider mb-2">
-              Social
-            </span>
-            <div className="flex gap-4 mt-1">
-              {/* Instagram */}
-              <a href="#" aria-label="Instagram" className="text-kumo-beige/70 hover:text-kumo-beige transition-colors">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                  <rect x="2" y="2" width="20" height="20" rx="5" />
-                  <circle cx="12" cy="12" r="5" />
-                  <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none" />
-                </svg>
-              </a>
-              {/* TikTok */}
-              <a href="#" aria-label="TikTok" className="text-kumo-beige/70 hover:text-kumo-beige transition-colors">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1 0-5.78 2.92 2.92 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 3 15.57 6.33 6.33 0 0 0 9.37 22a6.33 6.33 0 0 0 6.33-6.33V9.18a8.16 8.16 0 0 0 3.89.98V6.69z" />
-                </svg>
-              </a>
-              {/* YouTube */}
-              <a href="#" aria-label="YouTube" className="text-kumo-beige/70 hover:text-kumo-beige transition-colors">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
-                </svg>
-              </a>
+            {/* Right: Social + Newsletter */}
+            <div className="flex flex-col gap-6">
+              <div>
+                <span className="text-xs text-kumo-primary italic mb-3 block">
+                  Coming soon
+                </span>
+                <div className="flex gap-3">
+                  <a
+                    href="#"
+                    aria-label="Facebook"
+                    className="w-8 h-8 rounded-full border border-kumo-olive/40 flex items-center justify-center text-kumo-beige/70 hover:text-kumo-beige transition-colors"
+                  >
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                    >
+                      <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                    </svg>
+                  </a>
+                  <a
+                    href="#"
+                    aria-label="Instagram"
+                    className="w-8 h-8 rounded-full border border-kumo-olive/40 flex items-center justify-center text-kumo-beige/70 hover:text-kumo-beige transition-colors"
+                  >
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                    >
+                      <rect x="2" y="2" width="20" height="20" rx="5" />
+                      <circle cx="12" cy="12" r="5" />
+                      <circle
+                        cx="17.5"
+                        cy="6.5"
+                        r="1.5"
+                        fill="currentColor"
+                        stroke="none"
+                      />
+                    </svg>
+                  </a>
+                  <a
+                    href="#"
+                    aria-label="LinkedIn"
+                    className="w-8 h-8 rounded-full border border-kumo-olive/40 flex items-center justify-center text-kumo-beige/70 hover:text-kumo-beige transition-colors"
+                  >
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                    >
+                      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                    </svg>
+                  </a>
+                </div>
+              </div>
+              <div>
+                <span className="text-xs text-kumo-primary font-medium mb-2 block">
+                  Join our newsletter
+                </span>
+                <div className="flex">
+                  <input
+                    type="email"
+                    placeholder="E-Mail"
+                    className="bg-transparent border border-kumo-olive/40 rounded-l-sm px-3 py-2 text-xs text-kumo-beige/80 placeholder:text-kumo-muted/50 flex-1 outline-none focus:border-kumo-muted"
+                  />
+                  <button className="bg-kumo-olive/50 border border-kumo-olive/40 border-l-0 rounded-r-sm px-3 py-2 text-kumo-beige hover:bg-kumo-olive transition-colors">
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                    >
+                      <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Copyright */}
-        <div className="mt-8 pt-4 border-t border-kumo-olive/10">
-          <p className="text-xs text-kumo-muted">
-            © 2025 Matsu Matcha. All rights reserved. Designed with care.
-          </p>
+        {/* Large logo below the card */}
+        <div className="flex justify-center mt-12 mb-8">
+          <div className="w-48 md:w-64">
+            <MatsuLogo className="text-kumo-dark/30" />
+          </div>
+        </div>
+
+        {/* Bottom bar */}
+        <div className="mx-6 md:mx-12 lg:mx-16 flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-kumo-dark/10">
+          <div className="flex items-center gap-2 text-xs text-kumo-dark/50">
+            <span>©2025</span>
+            <span>Matsu Matcha</span>
+          </div>
+          <div className="flex gap-4 text-xs text-kumo-dark/50">
+            <Link
+              href="/privacy"
+              className="hover:text-kumo-dark transition-colors"
+            >
+              Privacy Policy
+            </Link>
+            <Link href="#" className="hover:text-kumo-dark transition-colors">
+              User agreement
+            </Link>
+          </div>
         </div>
       </div>
     </footer>

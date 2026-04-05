@@ -66,7 +66,7 @@ export default function Crafted() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="bg-kumo-light text-kumo-dark py-20 md:py-32 lg:py-40">
+    <section ref={sectionRef} className="bg-kumo-beige text-kumo-dark py-20 md:py-32 lg:py-40">
       <div className="px-6 md:px-12">
         <div ref={titleRef}>
           {/* Title: Crafted */}
